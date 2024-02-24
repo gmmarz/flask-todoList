@@ -7,3 +7,24 @@ utilizar a regra
 60
 30
 10
+
+
+quando ele fazemos o app do flask na pasta app, 
+podemos chama-lo do terminal com o commando flask run
+
+Isso chama-se ingessão de dependências.
+
+para rodar com o debug - flask run --debug
+
+Arquitetura MVC module view controller.
+
+A pasta controllers será a responsável em fazer a comunicação entre a camada de view com a camada do banco.
+o controllers lida com as requisições.
+
+Boas praticas de projetos
+- instalando o pacote black, ele é um pacote que padroniza a formatação do código. 
+    -para aplicar a formatação basta digitar:
+        black . (formata todo o projeto)
+        
+-Modularizar o código
+    -Criando arquivos para coisas diferentes.
