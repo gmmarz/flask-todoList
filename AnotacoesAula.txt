@@ -1,0 +1,9 @@
+-Ferramente interessante para utilizar.
+Poetry
+
+site legal para gerar palletas
+colors.co
+utilizar a regra 
+60
+30
+10
