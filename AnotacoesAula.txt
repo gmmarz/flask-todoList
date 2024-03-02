@@ -28,3 +28,17 @@ Boas praticas de projetos
         
 -Modularizar o código
     -Criando arquivos para coisas diferentes.
+
+-Anotações aula - 02/mar/2024
+link dont pad
+
+flask-sm0203
+
+tag aside é uma tag que simboliza um conteudo que não é o conteudo 
+principal
+
+para iniciar
+flask db init
+
+para gerar o gerenciamento de versoes do db
+flask db migrate
