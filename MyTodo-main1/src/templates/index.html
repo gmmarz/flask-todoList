@@ -1,8 +1,8 @@
 {% extends '_layout.html' %}
 
 {% block title %}
-  <h2> Listagem de Tarefas </h2>
-{% endblock %}
+<h2> Listagem de Tarefas </h2>
+{%endblock%}
 
 {% block content %}
   <section id="content">
@@ -20,18 +20,18 @@
       <tbody>
         {% for tarefa in tarefas %}
         <tr>
-          <td>{{ tarefa.id }}</td>
-          <td>{{ tarefa.nome }}</td>
-          <td>{{ tarefa.data_inicio.strftime('%d/%m/%Y') }}</td>
+          <td>{{ tarefa.get('id') }}</td>
+          <td>{{ tarefa.get('nome') }}</td>
+          <td>{{ tarefa.get('data_inicio').strftime('%d/%m/%Y') }}</td>
           <td>
-            {% if tarefa.data_conclusao == None %} 
+            {% if tarefa.get('data_conclusao') == None %} 
               ------------
             {% else %} {{
-            tarefa.data_conclusao.strftime('%d/%m/%Y') }}
-            {% endif %}
+            tarefa.get('data_conclusao').strftime('%d/%m/%Y') }} {% endif
+            %}
           </td>
           <td>
-            {% if tarefa.concluida == True %} 
+            {% if tarefa.get('concluida') == True %} 
               Sim 
             {% else %} 
               Não 
@@ -41,7 +41,7 @@
             <a href="" class="edit">
               Editar
             </a>
-            <a href="/tarefas/{{tarefa.id}}/delete" class="delete">
+            <a href="/tarefas/{{tarefa.get('id')}}/delete" class="delete">
               Excluir
             </a>
           </td>
@@ -50,4 +50,5 @@
       </tbody>
     </table>
   </section>
+
 {% endblock %}

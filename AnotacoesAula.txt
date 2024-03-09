@@ -42,3 +42,17 @@ flask db init
 
 para gerar o gerenciamento de versoes do db
 flask db migrate
+
+
+thema august
+august material ocean
+
+-----------------------------------------------------------------
+Anotações aula 09/03/2024
+dontpad link flask-sm0903
+
+Para fazer o VSCode mudar os icones das pastas
+https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-icons
+
+utilizar poetry para gerenciar as dependencias dos projetos automaticamente.
+RECOMENDA MUITO

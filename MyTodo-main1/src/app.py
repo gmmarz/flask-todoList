@@ -1,41 +1,39 @@
 from datetime import datetime as dt
 from flask import Flask, render_template, redirect, request
-from db import db, migrate,DATABASE_URI
-from models import *
+from db import db,migrate
+from models import Tarefa
+
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI #URL para o flask_sqlAlchemy
+app.config['SQLALCHEMY_DATABASE_URI']='mysql+mysqlconnector://root:@localhost:3306/task_list'
 
 
 # View Routes
-@app.route("/", methods=["GET"])
-def root():
-    return redirect("/tarefas/listar")
-
 @app.route("/tarefas/listar", methods=["GET"])
-def index():
-    tarefas = db.session.query(Tarefa).all()
-    return render_template("index.html", tarefas=tarefas)
+def index(message: str = None):
+    # return render_template("index.html", tarefas=tarefas, message=message)
+    return render_template("index.html")
 
-@app.route('/tarefas/criar', methods=['GET'])
+@app.route("/tarefas/criar", methods=["GET"])
 def create():
     return render_template("create.html")
 
 # Action Routes
 @app.route("/tarefas", methods=["POST"])
 def save():
-    form_data = dict(request.form)
+    pass
+    # form_data = dict(request.form)
 
-    tarefa = Tarefa(
-       form_data.get("nome"), 
-       form_data.get("descricao"),
-       dt.strptime(form_data.get("data_inicio"), "%Y-%m-%d").date(),
-       form_data.get("data_conclusao"),
-    )
-
-    db.session.add(tarefa)
-    db.session.commit()
+    # tarefa = {
+    #     "id": get_new_id(tarefas),
+    #     "nome": form_data.get("nome"),
+    #     "descricao": form_data.get("descricao"),
+    #     "data_inicio": dt.strptime(form_data.get("data_inicio"), "%Y-%m-%d").date(),
+    #     "data_conclusao": None,
+    #     "concluida": False,
+    # }
+    # tarefas.append(tarefa)
 
     return redirect("/tarefas/listar")
 
@@ -51,11 +49,14 @@ def delete(id: int):
     # return render_template(
     #     "index.html", tarefas=tarefas, message="Tarefa não encontrada"
     # )
-
-#Uma boa pratica para organizar o projeto.
+    
+    
 with app.app_context():
     db.init_app(app)
     migrate.init_app(app)
+    
+    
+
 
 if __name__ == "__main__":
     app.run(debug=True)
