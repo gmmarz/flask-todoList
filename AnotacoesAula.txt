@@ -56,3 +56,6 @@ https://marketplace.visualstudio.com/items?itemName=vscode-icons-team.vscode-ico
 
 utilizar poetry para gerenciar as dependencias dos projetos automaticamente.
 RECOMENDA MUITO
+
+inteligencia artificial bem interessante para resolver duvidas
+phind

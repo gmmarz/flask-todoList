@@ -26,3 +26,15 @@ class Tarefa(db.Model):
         self.data_conclusao = data_conclusao
         self.concluida = True if data_conclusao is not None else False
         
+    def update(self, tarefa:dict):
+        self.nome = tarefa.get('nome')  
+        self.descricao = tarefa.get('descricao') 
+        self.data_inicio =tarefa.get('data_inicio') 
+        data_conclusao = tarefa.get('data_conclusao') 
+        if data_conclusao != '':
+            self.data_conclusao = dt.strptime(data_conclusao,'%Y-%m-%d').date()
+            self.concluida = True
+        else:
+            self.data_conclusao = None
+            self.concluida = False
+       
