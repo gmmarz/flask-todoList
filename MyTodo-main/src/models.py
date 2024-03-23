@@ -1,8 +1,11 @@
 from db import db
-from datetime import datetime as dt,date
-from sqlalchemy import Column, Integer, String, Boolean, Date
+from datetime import datetime as dt, date
+from sqlalchemy import Column, Integer, String, Boolean, Date, ForeignKey
+from sqlalchemy.orm import Mapped, relationship
+from werkzeug.security import check_password_hash, generate_password_hash
+# Importando o UserMixin
+from flask_login import UserMixin
 
-#Importante que este model seja o model do FLASK SQL ALchemy
 class Tarefa(db.Model):
     __tablename__ = 'tarefas'
 
@@ -13,28 +16,49 @@ class Tarefa(db.Model):
     data_conclusao = Column(Date)
     concluida = Column(Boolean, nullable=False, default=False)
 
-    def __init__(self,
-                 nome:str,
-                 descricao:str,
-                 data_inicio:date,
-                 data_conclusao:date,
+    user_id = Column(Integer, ForeignKey('users.id'), nullable=False)
+    user: Mapped["User"] = relationship("User", back_populates="tarefas")
 
-        ) -> None:
-        self.nome = nome   
+    def __init__(
+        self, 
+        nome: str, 
+        descricao: str,
+        data_inicio: date,
+        data_conclusao: date
+    ) -> None:
+        self.nome = nome
         self.descricao = descricao
         self.data_inicio = data_inicio
         self.data_conclusao = data_conclusao
-        self.concluida = True if data_conclusao is not None else False
+        self.concluida =  True if data_conclusao is not None else False
+
+    def update(self, tarefa: dict):
+        self.nome = tarefa.get('nome')
+        self.descricao = tarefa.get('descricao')
+        self.data_inicio = dt.strptime(tarefa.get('data_inicio'), '%Y-%m-%d')
         
-    def update(self, tarefa:dict):
-        self.nome = tarefa.get('nome')  
-        self.descricao = tarefa.get('descricao') 
-        self.data_inicio =tarefa.get('data_inicio') 
-        data_conclusao = tarefa.get('data_conclusao') 
+        data_conclusao = tarefa.get('data_conclusao')
         if data_conclusao != '':
-            self.data_conclusao = dt.strptime(data_conclusao,'%Y-%m-%d').date()
+            self.data_conclusao = dt.strptime(data_conclusao, '%Y-%m-%d').date()
             self.concluida = True
         else:
             self.data_conclusao = None
             self.concluida = False
-       
+
+
+class User(db.Model, UserMixin):
+    __tablename__ = 'users'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    nome = Column(String(255), nullable=False)
+    senha = Column(String(255), nullable=False)
+    ativo = Column(Boolean, nullable=False, default=True)
+		
+    tarefas: Mapped[list["Tarefa"]] = relationship("Tarefa", back_populates="user")
+		
+    def __init__(self, nome: str, senha: str) -> None:
+        self.nome = nome
+        self.senha = generate_password_hash(senha)
+    
+    def verificar_senha(self, senha_plana: str) -> bool:
+        return check_password_hash(self.senha, senha_plana)

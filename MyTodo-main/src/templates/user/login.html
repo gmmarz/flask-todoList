@@ -1,0 +1,36 @@
+{% extends 'user/_layout.html' %}
+
+{% block title %}
+  <title> Minhas Tarefas - Login </title>
+{% endblock %}
+
+{% block main %} 
+  <main>
+    <h1> Login </h1>
+    {% with messages = get_flashed_messages(true) %}
+      {% if messages %}
+        <!-- Buscando a categoria da 1ª mensagem -->
+        <p class="{{messages[0][0]}}">
+          <!-- Buscando o texto da 1ª mensagem -->
+          {{ messages[0][1] }}
+        </p>
+      {% endif %}
+    {% endwith %}
+    <form action="/login" method = "POST">
+      <div class="form-item">
+        <label for="nome"> Usuario </label>
+        <input type="text" name="nome" id="nome" autocomplete="off" autofocus>
+      </div>
+      <div class="form-item">
+        <label for="senha"> Senha </label>
+        <input type="password" name="senha" id="senha" autocomplete="off">
+      </div>
+      <div class="form-container">
+        <input type="checkbox" name="lembrar" id="lembrar">
+        <label for="lembrar"> Mantenha-me Conectado </label>
+      </div>
+      <button type="submit"> Entrar </button>
+    </form>
+    <p> Não tem conta? <a href="/registrar"> Cadastre-se </a></p>
+  </main>
+{% endblock %}

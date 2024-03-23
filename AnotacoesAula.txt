@@ -62,3 +62,16 @@ phind
 
 Verficiar a biblioteca
 flask_httpauth
+
+------------------------------------------------------------------
+Anotações aula 23/03/2023
+dontpad flask-sm2303
+
+Material
+https://davi-lucciola.notion.site/Aula-08-cc80f5f31ebe4ec39cb8b09bff82706a
+
+versão final
+MVC
+camada controladores
+camada de view
+camada dos models

@@ -1,0 +1,53 @@
+{% extends 'tarefa/_layout.html' %}
+
+{% block title %}
+  <h2> Listagem de Tarefas </h2>
+{% endblock %}
+
+{% block content %}
+  <section id="content">
+    <table>
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Nome</td>
+          <td>Data Inicio</td>
+          <td>Data Conclusão</td>
+          <td>Concluida</td>
+          <td>Ações</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% for tarefa in tarefas %}
+        <tr>
+          <td>{{ tarefa.id }}</td>
+          <td>{{ tarefa.nome }}</td>
+          <td>{{ tarefa.data_inicio.strftime('%d/%m/%Y') }}</td>
+          <td>
+            {% if tarefa.data_conclusao == None %} 
+              ------------
+            {% else %} {{
+              tarefa.data_conclusao.strftime('%d/%m/%Y') }} 
+            {% endif %}
+          </td>
+          <td>
+            {% if tarefa.concluida == True %} 
+              Sim 
+            {% else %} 
+              Não 
+            {% endif %}
+          </td>
+          <td>
+            <a href="/tarefas/{{tarefa.id}}/editar" class="edit">
+              Editar
+            </a>
+            <a href="/tarefas/{{tarefa.id}}/delete" class="delete">
+              Excluir
+            </a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+{% endblock %}
